@@ -1,10 +1,10 @@
-CLIENT_ID = "367393827472-t1tfnn1m9l6jskem07nasottck3lotp6.apps.googleusercontent.com";
+CLIENT_ID = "367393827472-c9jtnrhlcqm6gphhgocm8gkh29gpmnpf.apps.googleusercontent.com";
+REDIRECT_URI = "http://www.google.com";
 
 $(document).ready(function(){
-
 	$("#btn-login").click(function() {
 
-		location.href = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id="+CLIENT_ID+"&redirect_uri=http%3A%2F%2Flocalhost%2Fwww%2FG_SYNC%2Findex.html&scope=http%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&state=5604e3b5c51e2";
+		location.href = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&scope=http%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&state=5604e3b5c51e2";
 
 	});
 
@@ -21,6 +21,8 @@ $(document).ready(function(){
 			var token = gapi.auth.getToken();
 			if(token != null){
 				start_sync(token);
+
+				$("#img-logo").attr("src", "img/google-logo.png");
 			}else{
 				alert("Você deve fazer login primeiro!");
 			}
@@ -33,7 +35,60 @@ $(document).ready(function(){
 			dataType: 'jsonp',
 			data: token
 		}).done(function(data) {
-			alert(JSON.stringify(data));
+			//console.log(JSON.stringify(data));
+			var entrys = JSON.parse(JSON.stringify(data)).feed.entry;
+
+			entrys.forEach(save);
 		});
 	}
+
+	function save(value, index, ar){
+		//var contact = new mozContact();
+
+		var nome = value.title.$t;
+		var mail, fone;
+
+		try{
+			mail = value.gd$mail[0].address;
+		}catch(exception){}
+
+		try{
+			fone = value.gd$phoneNumber[0].$t;
+		}catch(exception){}
+
+		if(!exists(fone)){
+			//cria contato
+		}
+	}
+
+	function exists(number){
+		var cursor = navigator.mozContacts.getAll({});
+
+		cursor.onsuccess = function () {
+			if(cursor.result()){
+				console.log(cursor.result);
+				cursor.continue();
+			}
+		}
+	}
+
+
+
+	function createContact(){
+		var contact = new mozContact();
+		contact.init({name: ['Contato Inicial']});
+
+		var request = navigator.mozContacts.save(contact);
+
+		request.onsuccess = function(){
+			alert("Primeiro contato salvo!");
+		}
+		request.onerror = function(){
+			alert("Erro ao salvar o primeiro contato: ");
+
+		}
+	}
+
+	createContact();
+
 });
