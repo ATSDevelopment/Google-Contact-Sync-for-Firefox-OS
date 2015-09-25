@@ -15,7 +15,7 @@
     }
   },
   "redirects": [
-  {"from": "http://www.google.com", "to": "/index.html"}
+  {"from": "http://localhost/index.html", "to": "/index.html"}
   ],
   "developer": {
     "name": "Carlos Souza Rodrigues Filho",

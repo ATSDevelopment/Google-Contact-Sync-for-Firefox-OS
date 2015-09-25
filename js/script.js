@@ -1,10 +1,10 @@
-CLIENT_ID = "367393827472-c9jtnrhlcqm6gphhgocm8gkh29gpmnpf.apps.googleusercontent.com";
-REDIRECT_URI = "http://www.google.com";
+CLIENT_ID = "367393827472-dm44e1puvndsd9je57ceatdldd05sjju.apps.googleusercontent.com";
+REDIRECT_URI = "http://gsyncredir.atsdevelopment.com.br";
 
 $(document).ready(function(){
 	$("#btn-login").click(function() {
 
-		location.href = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&scope=http%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds&state=5604e3b5c51e2";
+		location.href = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&scope=http%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds";
 
 	});
 
