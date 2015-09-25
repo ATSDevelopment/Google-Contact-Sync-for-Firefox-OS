@@ -1,5 +1,5 @@
-CLIENT_ID = "367393827472-dm44e1puvndsd9je57ceatdldd05sjju.apps.googleusercontent.com";
-REDIRECT_URI = "http://gsyncredir.atsdevelopment.com.br";
+CLIENT_ID = "367393827472-phidvvvmffn571aprqj8ct6cr8e7mvun.apps.googleusercontent.com";
+REDIRECT_URI = "http://gsync.atsdevelopment.com.br";
 
 $(document).ready(function(){
 	$("#btn-login").click(function() {
@@ -17,16 +17,20 @@ $(document).ready(function(){
 			'scope': 'https://www.google.com/m8/feeds'
 		};
 
-		gapi.auth.authorize(config, function(){
-			var token = gapi.auth.getToken();
-			if(token != null){
-				start_sync(token);
+		try{
+			gapi.auth.authorize(config, function(){
+				var token = gapi.auth.getToken();
+				if(token != null){
+					start_sync(token);
 
-				$("#img-logo").attr("src", "img/google-logo.png");
-			}else{
-				alert("Você deve fazer login primeiro!");
-			}
-		});
+					$("#img-logo").attr("src", "img/google-logo.png");
+				}else{
+					alert("Você deve fazer login primeiro!");
+				}
+			});
+		}catch(exception){
+			alert('error');
+		}
 	});
 
 	function start_sync(token){
@@ -44,20 +48,24 @@ $(document).ready(function(){
 
 	function save(value, index, ar){
 		//var contact = new mozContact();
-
-		var nome = value.title.$t;
-		var mail, fone;
-
 		try{
-			mail = value.gd$mail[0].address;
-		}catch(exception){}
+			var nome = value.title.$t;
+			var mail, fone;
 
-		try{
-			fone = value.gd$phoneNumber[0].$t;
-		}catch(exception){}
+			try{
+				mail = value.gd$mail[0].address;
+			}catch(exception){}
 
-		if(!exists(fone)){
-			//cria contato
+			try{
+				fone = value.gd$phoneNumber[0].$t;
+			}catch(exception){}
+
+			var contact = new mozContact();
+			contact.init({name: nome, tel: fone});
+
+			navigator.mozContacts.save(contact);
+		}catch(exception){
+
 		}
 	}
 
@@ -74,7 +82,7 @@ $(document).ready(function(){
 
 
 
-	function createContact(){
+	/*function createContact(){
 		var contact = new mozContact();
 		contact.init({name: ['Contato Inicial']});
 
@@ -89,6 +97,6 @@ $(document).ready(function(){
 		}
 	}
 
-	createContact();
+	createContact();*/
 
 });
