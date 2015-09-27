@@ -1,13 +1,23 @@
-REQUEST_CONFIG = {'client_id': '367393827472-dm44e1puvndsd9je57ceatdldd05sjju.apps.googleusercontent.com','immediate':true,'scope': 'https://www.google.com/m8/feeds'};
+CLIENT_ID = "367393827472-dm44e1puvndsd9je57ceatdldd05sjju.apps.googleusercontent.com";
 
 $(document).ready(function(){
-	// fetch contacts
 
-	$("#btn-sync").click(function(){
-		gapi.auth.authorize(REQUEST_CONFIG, function(){
-			console.log(gapi.auth.getToken());
-		});
-		alert('asd');
+	$("#btn").click(function() {
+		var config = {
+			'client_id': CLIENT_ID,
+			"immediate": true,
+			'scope': 'https://www.google.com/m8/feeds'
+		};
+
+		try{
+			gapi.auth.authorize(config, function(){
+				var token = gapi.auth.getToken();
+				console.log(token);
+			});
+		}catch(exception){
+			console.log("Erro ao obter token");
+			console.log(exception);
+		}
 	});
 
 });

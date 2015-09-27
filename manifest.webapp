@@ -10,12 +10,9 @@
   },
   "type": "privileged",
   "permissions": {
-    "contacts": {
-      "description":"Permite gerenciar seus contatos"
-     },
-      "systemXHR": {
-        "description":"Permite fazer requisições ajax"
-     }
+    "systemXHR": {
+       "description":"Permite fazer requisições ajax"
+    }
   },
   "developer": {
     "name": "Carlos Souza Rodrigues Filho",
