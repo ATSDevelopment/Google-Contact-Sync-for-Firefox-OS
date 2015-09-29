@@ -12,6 +12,10 @@
   "permissions": {
     "systemXHR": {
        "description":"Permite fazer requisições ajax"
+    },
+    "contacts": {
+      "access":"createonly",
+      "description":"Permite salvar contatos na agenda"
     }
   },
   "developer": {
@@ -19,7 +23,7 @@
     "url": "http://www.atsdevelopment.com.br"
   },
    "redirects": [
-    {"from": "http://gsync.redir.com/index.html",
+    {"from": "http://gsync.app/auth-c.html",
        "to": "/sync.html"}
   ]
 }
